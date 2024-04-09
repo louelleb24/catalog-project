@@ -46,8 +46,6 @@ let titles = [
 ];
 
 
-
-
 // Your final submission should have much more data than this, and 
 // you should use more than just an array of strings to store it all.
 
@@ -61,7 +59,7 @@ function showCards() {
     const infoData = [
     {titlePicture: titles[0], pictureURL: pictureURLs[0]},
     {titlePicture: titles[1], pictureURL: pictureURLs[1]},
-    {titlePicture: titles[2], pictureURL: pictureURLs[2]},
+    {titlePicture: titles[2], pictureURL: pictureURLs[2]}
 
     ]; 
 
@@ -71,19 +69,20 @@ function showCards() {
         {bulletPoint: bulletPoints[2]},
 
     ];
+ 
 
-
-    
-    for (let i = 0; i < titles.length; i++) { 
+    for (let i = 0; i < infoData.length; i++) { 
         // This part of the code doesn't scale very well! After you add your
         // own data, you'll need to do something totally different here.
         const {titlePicture, pictureURL} = infoData[i]; 
-        const bulletPointsForCard = bulletData[i];
+        const bulletPointsForCard = bulletData[i].bulletPoint;
 
         const nextCard = templateCard.cloneNode(true); // Copy the template card
         editCardContent(nextCard, titlePicture, pictureURL, bulletPointsForCard); // Edit title and image
         cardContainer.appendChild(nextCard); // Add new card to the container
     }
+        
+
 }
 
 
@@ -97,17 +96,14 @@ function editCardContent(card, newTitle, newImageURL, bulletPoints) {
     cardImage.src = newImageURL;
     cardImage.alt = newTitle + " Poster";
 
-    // Get the ul element where bullet points will be added
-    const bulletList = card.querySelector(".bullet-points");
-    bulletList.innerHTML = ""; // clears existing bullet points data 
-
-    // Loop through each bullet point and create a new li element 
-    bulletPoints.forEach(bulletPoint => {
-        const listItem = document.createElement("li");
-        listItem.textContent = bulletPoint; 
-        bulletList.appendChild(listItem);
+    const bulletList = card.querySelector("ul");
+    bulletList.innerHTML = "";
+    bulletPoints.forEach(point => {
+        const li = document.createElement("li");
+        li.textContent = point; 
+        bulletList.appendChild(li);
     })
-  
+
 
     // You can use console.log to help you debug!
     // View the output by right clicking on your website,
